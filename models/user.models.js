@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema(
         },
         picture:{
             type:String,
-            default:"./uploads/proil/random-user.jpg"
+            default:"./uploads/profil/random-user.jpg"
         }
     },
     {

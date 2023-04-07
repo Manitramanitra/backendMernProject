@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-   "mongodb://localhost:27017/MernProject",
+   "mongodb://localhost:27017/"+process.env.DATABASE_NAME,
    {
       useNewUrlParser: true,
       useUnifiedTopology: true,

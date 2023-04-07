@@ -10,5 +10,7 @@ router.get('/',userController.getAlluser);
 router.get('/:id',userController.userInfo);
 router.delete('/:id',userController.userDelete);
 router.put('/:id',userController.userUpdate);
+router.patch("/follow/:id",userController.follow);
+router.patch("/unfollow/:id",userController.unfollow);
 
 module.exports = router 

@@ -22,6 +22,10 @@ app.use(morgan('dev'))
 
 //routes
 app.use('/api/user',userRoutes);
+app.use('*',(req,res) => {
+    const message = "page not found";
+    res.status(404).json({ message });
+});
 
 
 
