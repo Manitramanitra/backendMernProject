@@ -15,8 +15,9 @@ const userSchema = mongoose.Schema(
         email: {
             type: String,
             required: true,
-            validator: [isEmail],
+            validate: [isEmail],
             lowercase: true,
+            unique: true,
             trim: true
         },
         password: {
@@ -64,9 +65,9 @@ userSchema.statics.login = async function(email, password){
         if(auth){
             return user;
         }
-        return Error('incorrect password') 
+        Error('incorrect password') 
     }
-    return Error('incorrect email')
+    Error('incorrect email')
 }
 
 const UserModel = mongoose.model('user', userSchema);

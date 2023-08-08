@@ -25,15 +25,16 @@ module.exports.checkUser = (req, res, next) => {
 module.exports.requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, process.env.TOKEN_SECRET, async (err, dekodedToken) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         console.log(err);
       } else {
-        console.log(decodeToken);
+        console.log(decodedToken);
         next();
       }
     });
   } else {
     console.log("No token");
+    res.send('failed to connect')
   }
 };

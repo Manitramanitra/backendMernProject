@@ -23,12 +23,13 @@ app.get("*", checkUser); //verifie le user
 app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
+
 //routes
 app.use("/api/user", userRoutes);
-app.use("*", (req, res) => {
-  const message = "page not found";
-  res.status(404).json({ message });
-});
+// app.use("*", (req, res) => {
+//   const message = "page not found";
+//   res.status(404).json({ message });
+// });
 
 //serveur
 app.listen(process.env.PORT, () => {
