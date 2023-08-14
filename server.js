@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/post.routes");
 const cors = require("cors");
 const morgan = require("morgan");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
@@ -26,6 +27,7 @@ app.get("/jwtid", requireAuth, (req, res) => {
 
 //routes
 app.use("/api/user", userRoutes);
+app.use("/api/post",postRoutes);
 // app.use("*", (req, res) => {
 //   const message = "page not found";
 //   res.status(404).json({ message });

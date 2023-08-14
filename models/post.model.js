@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    posteId: {
+    posterId: {
       type: String,
       required: true,
     },
@@ -37,5 +37,5 @@ const PostSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-module.exports = mongoose.model('post',PostSchema) // on export une base de donnees au nom de post venant du modéle PostSchema
+const PostModel = mongoose.model('post',PostSchema)// on export une base de donnees au nom de post venant du modéle PostSchema
+module.exports = PostModel 
