@@ -4,11 +4,11 @@ const userController = require("../controllers/user.controller");
 const uploadController = require("../controllers/upload.controller");
 const multer = require("multer");
 
-const upload = multer({storage : uploadController.storage});
-const uploadPost = multer({storage : uploadController.storage1});
+const uploadProfil = multer({storage : uploadController.storageProfil});
+const uploadPost = multer({storage : uploadController.storagePost});
 
 //auth
-router.post("/register",uploadPost.single("file"), authController.signUp);
+router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
 
@@ -21,6 +21,6 @@ router.patch("/follow/:id", userController.follow);
 router.patch("/unfollow/:id", userController.unfollow);
 
 //upload
-router.post("/upload", upload.single("file"), uploadController.uploadProfil);
+router.post("/upload", uploadProfil.single("file"), uploadController.uploadProfil);
 
 module.exports = router;

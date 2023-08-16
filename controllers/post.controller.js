@@ -10,22 +10,86 @@ module.exports.readPost = (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  const newPost = new PostModel({
-    posterId: req.body.posterId,
-    message: req.body.message,
-    video: req.body.video,
-    likers: [],
-    comments: [],
-  });
-  // console.log(newPost)
   try {
-    // const post = await PostModel.create({ posteId, message, video });
+    if (!ObjectId.isValid(req.body.posterId)) {
+      return res.status(200).json({ message: "ID unknown" });
+    }
+    
+    const file = req.file;
+    if (!file) {
+      return res.status(400).send({ error: "Please upload a file" });
+    }
+    
+    const allowedMimeTypes = ["image/jpg", "image/jpeg", "image/png"];
+    if (!allowedMimeTypes.includes(req.file.mimetype)) {
+      return res.status(400).send({ error: "Invalid file" });
+    }
+    
+    if (req.file.size > 500000) {
+      return res.status(400).send({ error: "Max size 500ko" });
+    }
+
+    const newPost = new PostModel({
+      posterId: req.body.posterId,
+      message: req.body.message,
+      picture: req.file.path,
+      video: req.body.video,
+      likers: [],
+      comments: [],
+    });
+    
     const post = await newPost.save();
-    return res.status(200).json(post);
+    if (post) {
+      return res.status(200).send({post,message:'Create post successed!!'});
+    } else {
+      return res.status(400).send({ message: "Create post failed" });
+    }
   } catch (err) {
+    console.log(err);
     return res.status(400).send(err);
   }
 };
+// module.exports.createPost = async (req, res) => {
+//   try {
+//     if (!ObjectId.isValid(req.body.posterId)) {
+//       return res.status(200).json({ message: "ID unkown" });
+//     }
+//     const file = req.file;
+//     if (!file) {
+//       const error = "Please upload a file";
+//       return res.status(400).send({ err: error });
+//     }
+//     if (
+//       req.file.mimetype !== "image/jpg" &&
+//       req.file.mimetype !== "image/jpeg" &&
+//       req.file.mimetype !== "image/png"
+//     ) {
+//       const error = "Invalid  file";
+//       return res.status(400).send({ error });
+//     }
+//     if (req.file.size > 500000) {
+//       const error = "Max size 500ko";
+//       return res.status(400).send({ error });
+//     }
+
+//     const newPost = new PostModel({
+//       posterId: req.body.posterId,
+//       message: req.body.message,
+//       picture: req.file.path,
+//       video: req.body.video,
+//       likers: [],
+//       comments: [],
+//     });
+//     const post = await newPost.save();
+//     if(post){return res.status(200).json(post).send(addProfil);}
+//     else {
+//       return res.status(400).send({message: "Create post failed"})
+//     }
+//   } catch (err) {
+//     console.log(err)
+//     return res.status(400).send(err);
+//   }
+// };
 
 module.exports.updatePost = async (req, res) => {
   if (!ObjectId.isValid(req.params.id)) {
@@ -195,7 +259,10 @@ module.exports.deleteCommentPost = (req, res) => {
       },
       { new: true },
       (err, docs) => {
-        if (!err) return res.status(200).send({message:"commentaire deleted success", docs});
+        if (!err)
+          return res
+            .status(200)
+            .send({ message: "commentaire deleted success", docs });
         else return res.status(400).send(err);
       }
     );
