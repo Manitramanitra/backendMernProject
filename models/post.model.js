@@ -4,7 +4,7 @@ const PostSchema = new mongoose.Schema(
   {
     posterId: {
       type: String,
-      required: true,
+      // required: true,
     },
     message: {
       type: String,
@@ -27,7 +27,7 @@ const PostSchema = new mongoose.Schema(
           commenterId: String,
           commenterPseudo: String,
           text: String,
-          timestam: Number,
+          timestamp: Number,
         },
       ],
       required: true,
