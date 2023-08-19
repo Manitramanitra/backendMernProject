@@ -28,10 +28,7 @@ app.get("/jwtid", requireAuth, (req, res) => {
 //routes
 app.use("/api/user", userRoutes);
 app.use("/api/post",postRoutes);
-// app.use("*", (req, res) => {
-//   const message = "page not found";
-//   res.status(404).json({ message });
-// });
+
 
 //serveur
 app.listen(process.env.PORT, () => {
