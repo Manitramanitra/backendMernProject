@@ -21,7 +21,7 @@ app.use(morgan("dev"));
 
 //jwt
 app.get("*", checkUser); //verifie le user
-app.get("/jwtid", requireAuth, (req, res) => {
+app.post("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
 

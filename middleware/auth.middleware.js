@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.models");
 
 module.exports.checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.body.jwt;
   if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodeToken) => {
       if (err) {
@@ -10,9 +10,9 @@ module.exports.checkUser = (req, res, next) => {
         res.cookie("jwt", "", { maxAge: 1 });
         next();
       } else {
+        console.log(decodeToken);
         let user = await UserModel.findById(decodeToken.id);
         res.locals.user = user;
-        console.log(user);
         next();
       }
     });
@@ -23,19 +23,22 @@ module.exports.checkUser = (req, res, next) => {
 };
 
 module.exports.requireAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.body.jwt;
   if (token) {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         console.log(err);
+        res.locals.user = null;
       } else {
-        console.log(decodedToken);
+        let user = await UserModel.findById(decodedToken.id);
+        console.log(user)
+        res.locals.user = user;
         next();
       }
     });
   } else {
     console.log("No token");
-    res.send('failed to connect')
+    res.locals.user = null;
   }
 };
 

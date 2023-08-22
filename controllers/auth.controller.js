@@ -22,20 +22,6 @@ module.exports.signUp = async (req, res) => {
   }
 };
 
-// module.exports.signIn = async (req, res, next) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     const user = await UserModel.login(email, password);
-//     const token = await createToken(user._id);
-//     res.cookie("jwt", token, { httpOnly: true, maxAge });
-//     res.status(200).json({ user: user._id });
-//   } catch (err) {
-//     const errors = signInErrors(err);
-//     res.status(200).json({errors:"email or password don't match or email not found"});
-//   }
-// };
-
 module.exports.signIn = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -53,8 +39,8 @@ module.exports.signIn = async (req, res, next) => {
     }
 
     const token = await createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge });
-    res.status(200).json({ user: user._id });
+    // res.cookie("jwt", token, { httpOnly: true, maxAge });
+    res.status(200).json({ user: user._id ,token});
 
     
   } catch (error) {
