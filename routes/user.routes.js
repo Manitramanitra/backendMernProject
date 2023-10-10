@@ -13,7 +13,7 @@ router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
 
 //crud
-router.get("/", userController.getAlluser);
+router.get("/all/", userController.getAlluser);
 router.get("/:id", userController.userInfo);
 router.delete("/:id", userController.userDelete);
 router.put("/:id", userController.userUpdate);
