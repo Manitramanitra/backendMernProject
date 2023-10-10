@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchDataUser } from "../actionCreator";
+import { changeImageUser, fetchDataUser } from "../actionCreator";
 
 const initialStateUser = {
   loading: false,
@@ -10,20 +10,6 @@ const initialStateUser = {
 export const userSlice = createSlice({
   name: "user",
   initialState: initialStateUser,
-  // reducers: {
-  //   fetchDataStart(state) {
-  //     state.loading = true;
-  //     state.error = null;
-  //   },
-  //   fetchDataSuccess(state, action) {
-  //     state.loading = false;
-  //     state.data = action.payload;
-  //   },
-  //   fetchDataFailure(state, action) {
-  //     state.loading = false;
-  //     state.error = action.payload;
-  //   },
-  // },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDataUser.pending, (state) => {
@@ -35,6 +21,21 @@ export const userSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchDataUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(changeImageUser.pending, (state) => {
+        // Gérez l'état pendant que l'action est en cours d'exécution
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(changeImageUser.fulfilled, (state, action) => {
+        // Gérez l'état lorsque l'action est réussie
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(changeImageUser.rejected, (state, action) => {
+        // Gérez l'état lorsque l'action échoue
         state.loading = false;
         state.error = action.error.message;
       });
