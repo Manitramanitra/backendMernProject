@@ -5,6 +5,7 @@ import UploadProfil from './UploadProfil'
 
 function UpdateProfil() {
     const userData = useSelector(state=>state.user);
+    console.log(userData)
 
   return (
     <div className="profil-container">

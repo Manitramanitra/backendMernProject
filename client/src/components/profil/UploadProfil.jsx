@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { changeImageUser } from "../../redux/actionCreator";
 import ButtonSubmit from "../@shared/ButtonSubmit";
 function UploadProfil() {
   const [file, setFile] = useState();
@@ -20,9 +21,7 @@ function UploadProfil() {
       userId: userData.data._id,
       name: userData.data.pseudo,
     };
-    console.log("====================================");
-    console.log(utilData);
-    console.log("====================================");
+    dispatch(changeImageUser(utilData));
   };
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)} className="upload-pic">

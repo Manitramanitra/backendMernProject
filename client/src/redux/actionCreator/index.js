@@ -17,7 +17,7 @@ export const changeImageUser = createAsyncThunk(
   "user/changeImageUser",
   async (data) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/upload`, {
+      const response = await fetch(`http://localhost:5000/api/user/upload`, {
         method: "POST",
         body: data,
       });

@@ -6,7 +6,7 @@ function NavIcon() {
     <div className="let-nav-container">
         <div className="icons">
             <div className="icons-bis">
-                <NavLink to="/" ClassName="active-left-nav">
+                <NavLink to="/" className="active-left-nav">
                     <img src="./img/icons/home.svg" alt="" />
                 </NavLink>
                 <br />
