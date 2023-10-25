@@ -6,6 +6,7 @@ const uploadController = require('../controllers/upload.controller');
 const uploadPost = multer({storage : uploadController.storagePost});
 
 router.get('/',postController.readPost);
+// test
 router.post('/',uploadPost.single("file"),postController.createPost);
 router.put('/:id',postController.updatePost);
 router.delete('/:id',postController.deletePost);
