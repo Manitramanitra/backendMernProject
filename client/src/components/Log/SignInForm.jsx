@@ -38,6 +38,7 @@ function SignInForm() {
 
         <ButtonSubmit isDisable={true} value="Connection" />
         <br />
+        <a href=""><small>forgot password?</small> </a>
       </form>
       <Toaster />
     </>

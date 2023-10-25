@@ -8,7 +8,8 @@ function UploadProfil() {
   const [previewSource, setPreviewSource] = useState();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user);
-  const utilData = {};
+  const utilData = new FormData();
+  const userId = localStorage.getItem("authToken");
   const {
     register,
     handleSubmit,
@@ -16,34 +17,32 @@ function UploadProfil() {
     control,
   } = useForm();
   const onSubmit = (data) => {
-    const utilData = {
-      ...data,
-      userId: userData.data._id,
-      name: userData.data.pseudo,
-    };
-    dispatch(changeImageUser(utilData));
+    utilData.append("file", file);
+    utilData.append("userId", userData.data._id);
+    // console.log(utilData,userData.data._id);
+    dispatch(changeImageUser(utilData, userId));
   };
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)} className="upload-pic">
       <label htmlFor="file">Choisir l'image</label>
       {/* <span style={{display: "flex"}}> */}
-        <input
-          {...register("file", {
-            required: { value: true, message: "veuillez entrer une image" },
-          })}
-          type="file"
-          id="file"
-          accept=".jpg, .png, .jpeg"
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-            const reader = new FileReader();
-            reader.readAsDataURL(e.target.files[0]);
-            reader.onloadend = () => {
-              setPreviewSource(reader.result);
-            };
-          }}
-        />
-        {/* {previewSource && (
+      <input
+        {...register("file", {
+          required: { value: true, message: "veuillez entrer une image" },
+        })}
+        type="file"
+        id="file"
+        accept=".jpg, .png, .jpeg"
+        onChange={(e) => {
+          setFile(e.target.files[0]);
+          const reader = new FileReader();
+          reader.readAsDataURL(e.target.files[0]);
+          reader.onloadend = () => {
+            setPreviewSource(reader.result);
+          };
+        }}
+      />
+      {/* {previewSource && (
           <img
             src={previewSource}
             alt="chosen"

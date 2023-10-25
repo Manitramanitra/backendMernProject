@@ -2,10 +2,8 @@ const UserModel = require("../models/user.models");
 const multer = require("multer");
 
 module.exports.uploadProfil = async (req, res) => {
-  console.log(req.body)
   try {
     const file = req.file;
-    console.log(file);
     if (!file) {
       const error = "Please upload a file";
       return res.status(400).send({ err: error });
@@ -27,7 +25,8 @@ module.exports.uploadProfil = async (req, res) => {
       req.body.userId,
       {
         $set: {
-          picture: req.file.path,
+          // picture: req.file.path,
+          picture : `./uploads/profil/${file.originalname}`
         },
       },
       { new: true, upsert: true, setDefaultsOnInsert: true }
@@ -45,14 +44,15 @@ module.exports.storageProfil = multer.diskStorage({
     cb(null, "./client/public/uploads/profil/");
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, `${file.originalname}`);
   },
 });
+
 module.exports.storagePost = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./client/public/uploads/posts/");
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, `${file.originalname}`);
   },
 });

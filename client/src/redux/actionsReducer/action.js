@@ -32,7 +32,8 @@ export const userSlice = createSlice({
       .addCase(changeImageUser.fulfilled, (state, action) => {
         // Gérez l'état lorsque l'action est réussie
         state.loading = false;
-        state.data = action.payload;
+        // state.data = action.payload;
+        console.log(action.payload);
       })
       .addCase(changeImageUser.rejected, (state, action) => {
         // Gérez l'état lorsque l'action échoue

@@ -15,9 +15,11 @@ export const fetchDataUser = createAsyncThunk(
 
 export const changeImageUser = createAsyncThunk(
   "user/changeImageUser",
-  async (data) => {
+  async (data,userId) => {
+    console.log(data);
+    console.log(userId);
     try {
-      const response = await fetch(`http://localhost:5000/api/user/upload`, {
+      const response = await fetch("http://localhost:5000/api/user/upload", {
         method: "POST",
         body: data,
       });
@@ -27,7 +29,7 @@ export const changeImageUser = createAsyncThunk(
       }
       if (responses.message) {
         const newRequest = await fetch(
-          `http://localhost:5000/api/user/${data.userId}`,
+          `http://localhost:5000/api/user/${userId}`,
           {
             method: "GET",
           }
