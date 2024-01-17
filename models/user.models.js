@@ -54,7 +54,8 @@ const userSchema = mongoose.Schema(
 // le mot clé pre('save') permet d'activer en premier le ligne de code contenant le pre
 userSchema.pre("save", async function(next){
     const salt = await bcrypt.genSalt();
-    this.password = bcrypt.hash(this.password, salt);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
     next();
 })
 
