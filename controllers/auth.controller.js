@@ -13,11 +13,22 @@ const createToken = async (id) => {
 module.exports.signUp = async (req, res) => {
   const { pseudo, email, password } = req.body;
   try {
+    const verify_email = await UserModel.findOne({ email });
+
+    if (verify_email) {
+      return res.status(200).send({ errors: "Email existe déjà" });
+    }
+
+    const verify_pseudo = await UserModel.findOne({ pseudo });
+
+    if (verify_pseudo) {
+      return res.status(200).send({ errors: "pseudo existe déjà" });
+    }
+
     const user = await UserModel.create({ pseudo, email, password });
     res.status(201).send({ user: user._id });
   } catch (err) {
-    console.log(err);
-    const errors = signUpErrors(err);
+    const errors = signUpErrors(err.message);
     res.status(200).send(errors);
   }
 };
