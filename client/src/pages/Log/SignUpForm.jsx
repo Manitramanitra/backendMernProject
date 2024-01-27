@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Input from "../@shared/Input";
-import dataInputSignup from "../staticData/dataInputSignup";
-import ButtonSubmit from "../@shared/ButtonSubmit";
-import TermsCheckbox from "../@shared/TermsCheckbox";
+import Input from "../../components/@shared/Input";
+import dataInputSignup from "../../components/staticData/dataInputSignup";
+import ButtonSubmit from "../../components/@shared/ButtonSubmit";
+import TermsCheckbox from "../../components/@shared/TermsCheckbox";
 import toast, { Toaster } from "react-hot-toast";
-import { createUser } from "../action/createUser";
+import { createUser } from "../../components/action/createUser";
 import SignInForm from "./SignInForm";
 
 function SignUpForm() {
@@ -27,7 +27,14 @@ function SignUpForm() {
     }
     const response = await createUser(data);
     console.log(response);
-    if (response.user) {
+    if (response.errors) {
+      toast.error(response.errors, {
+        style: {
+          background: "red", // Couleur de fond
+          color: "white", // Couleur du texte
+        },
+      });
+    } else if (response.user) {
       setFormSubmit(true);
     } else if (response.email != "") {
       toast.error(response.email);
@@ -44,8 +51,7 @@ function SignUpForm() {
     <>
       {formSubmit ? (
         <>
-          <SignInForm />{" "}
-          <span></span>
+          <SignInForm /> <span></span>
           <h4 className="success">
             {" "}
             Enregistrement réussi, veuillez-vous connecter

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { changeImageUser } from "../../redux/actionCreator";
-import ButtonSubmit from "../@shared/ButtonSubmit";
+import ButtonSubmit from "../../components/@shared/ButtonSubmit";
 function UploadProfil() {
   const [file, setFile] = useState();
   const [previewSource, setPreviewSource] = useState();

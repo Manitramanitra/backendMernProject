@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import NavIcon from '../@shared/NavIcon'
+import NavIcon from '../../components/@shared/NavIcon'
 import UploadProfil from './UploadProfil'
 
 function UpdateProfil() {

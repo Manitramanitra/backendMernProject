@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { UidContext } from "../components/Context/AppContext";
-import Log from "../components/Log/Log";
+import Log from "./Log/Log.jsx";
 import Navbar from "../components/@shared/Navbar";
-import UpdateProfil from "../components/profil/UpdateProfil";
+import UpdateProfil from "./profil/UpdateProfil";
+
 function Profil() {
   const uid = useContext(UidContext);
   return (

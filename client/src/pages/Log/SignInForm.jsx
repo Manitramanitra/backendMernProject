@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { login } from "../action/login";
-import Input from "../@shared/Input";
-import { handleTokenReceivedAndSave } from "../action/saveToken";
-import dataInputLogin from "../staticData/dataInputLogin";
-import ButtonSubmit from "../@shared/ButtonSubmit";
+import { login } from "../../components/action/login";
+import Input from "../../components/@shared/Input";
+import { handleTokenReceivedAndSave } from "../../components/action/saveToken";
+import dataInputLogin from "../../components/staticData/dataInputLogin";
+import ButtonSubmit from "../../components/@shared/ButtonSubmit";
 import { toast, Toaster } from "react-hot-toast";
 
 function SignInForm() {
