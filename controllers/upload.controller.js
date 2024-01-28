@@ -26,7 +26,7 @@ module.exports.uploadProfil = async (req, res) => {
       {
         $set: {
           // picture: req.file.path,
-          picture : `./uploads/profil/${file.originalname}`
+          picture: `./uploads/profil/${file.originalname}`,
         },
       },
       { new: true, upsert: true, setDefaultsOnInsert: true }
