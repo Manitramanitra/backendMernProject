@@ -4,8 +4,9 @@ import { changeImageUser, fetchDataUser } from "../actionCreator";
 const initialStateUser = {
   loading: false,
   data: [],
-  error:'',
-} ;
+  error: "",
+  message: "",
+};
 
 export const userSlice = createSlice({
   name: "user",
@@ -25,23 +26,32 @@ export const userSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(changeImageUser.pending, (state) => {
-        // Gérez l'état pendant que l'action est en cours d'exécution
         state.loading = true;
         state.error = null;
       })
       .addCase(changeImageUser.fulfilled, (state, action) => {
-        // Gérez l'état lorsque l'action est réussie
         state.loading = false;
-        // state.data = action.payload;
         console.log(action.payload);
+        if (action.payload.error) {
+          state.error = action.payload.error;
+        }
       })
       .addCase(changeImageUser.rejected, (state, action) => {
-        // Gérez l'état lorsque l'action échoue
         state.loading = false;
         state.error = action.error.message;
       });
   },
 });
+
+// export const resetError = createAction({
+//   name: "user/resetError",
+//   initialStateUser,
+//   reducers: {
+//     resetError: (state) => {
+//       state.error = null;
+//     },
+//   },
+// });
 
 export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } =
   userSlice.actions;

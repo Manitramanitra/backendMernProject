@@ -5,8 +5,8 @@ import UploadProfil from './UploadProfil'
 
 function UpdateProfil() {
     const userData = useSelector(state=>state.user);
-    console.log(userData)
-
+    const [imageUrl,setImageUrl]= useState(userData.data.picture)
+    
   return (
     <div className="profil-container">
         <NavIcon/>
@@ -14,7 +14,7 @@ function UpdateProfil() {
         <div className="update-container">
             <div className="left-part">
                 <h3>Photo de profil</h3>
-                <img src={userData.data.picture} alt="profil picture" />
+                <img src={imageUrl} alt="profil picture" />
                 <UploadProfil/>
             </div>
         </div>

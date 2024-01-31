@@ -15,9 +15,8 @@ export const fetchDataUser = createAsyncThunk(
 
 export const changeImageUser = createAsyncThunk(
   "user/changeImageUser",
-  async (data,userId) => {
-    console.log(data);
-    console.log(userId);
+  async (data, userId) => {
+    if (!userId) return;
     try {
       const response = await fetch("http://localhost:5000/api/user/upload", {
         method: "POST",
@@ -28,16 +27,15 @@ export const changeImageUser = createAsyncThunk(
         return responses;
       }
       if (responses.message) {
-        const newRequest = await fetch(
-          `http://localhost:5000/api/user/${userId}`,
-          {
-            method: "GET",
-          }
-        );
-        return await newRequest.json();
+        const newRequest = await fetch(`http://localhost:5000/api/user/${id}`, {
+          method: "GET",
+        });
+        const results = await newRequest.json();
+        return results;
       }
     } catch (error) {
       throw new Error("failed to change image try later.");
     }
   }
 );
+

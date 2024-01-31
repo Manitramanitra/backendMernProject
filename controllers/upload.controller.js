@@ -25,7 +25,6 @@ module.exports.uploadProfil = async (req, res) => {
       req.body.userId,
       {
         $set: {
-          // picture: req.file.path,
           picture: `./uploads/profil/${file.originalname}`,
         },
       },
